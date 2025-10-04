@@ -7,8 +7,6 @@ const keys = require('./config/keys');
 require('./models/Users');
 require('./services/passport');
 
-mongoose.connect(keys.mongoURI);
-
 const app = express();
 
 app.use(
@@ -22,4 +20,14 @@ require('./routes/authRoutes')(app);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT);
+mongoose.connect(keys.mongoURI).then(
+  () => {
+    console.log(
+      `MongoAtlas connection established. Starting the server on PORT ${PORT}`
+    );
+    app.listen(PORT);
+  },
+  (error) => {
+    console.log('Error connecting to MongoAtlas:', error);
+  }
+);
