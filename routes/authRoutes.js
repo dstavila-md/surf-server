@@ -10,7 +10,8 @@ module.exports = (app) => {
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      res.redirect('/surveys');
+      // res.redirect('/surveys');
+      res.send(req.user);
     }
   );
 
@@ -20,7 +21,7 @@ module.exports = (app) => {
   });
 
   app.get('/api/current-user', (req, res) => {
-    console.log('Request receivd for the current user!');
+    // console.log('Request receivd for the current user!');
     res.send(req.user);
   });
 };
